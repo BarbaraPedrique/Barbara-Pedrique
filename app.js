@@ -8,7 +8,7 @@ var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var contactRouter = require("./routes/contact");
 var contactListRouter = require("./routes/contact-list");
-
+require("dotenv").config();
 var apiForm = require("./api/form");
 
 var app = express();

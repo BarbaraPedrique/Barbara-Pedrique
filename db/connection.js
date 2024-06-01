@@ -10,6 +10,7 @@ const Forms = sequelize.define("forms", {
   phone: DataTypes.STRING,
   description: DataTypes.STRING,
   ip: DataTypes.STRING,
+  geolocalization: DataTypes.JSON,
 });
 
 sequelize.sync();
