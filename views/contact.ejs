@@ -48,6 +48,7 @@
         color: white;
       }
     </style>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
   </head>
 
   <body>
@@ -62,7 +63,7 @@
       <!-- Author: FormBold Team -->
       <!-- Learn More: https://formbold.com -->
       <div class="formbold-form-wrapper">
-        <form action="/api/form" method="POST">
+        <form action="/api/form" method="POST" id="my_captcha_form">
           <div class="formbold-input-flex">
             <div>
               <label for="firstname" class="formbold-form-label">
@@ -128,11 +129,13 @@
               class="formbold-form-input"
             ></textarea>
           </div>
+          <div class="g-recaptcha" data-sitekey="<%= recaptchaToken %>"></div>
 
-          <button class="formbold-btn">Send Message</button>
+          <button class="formbold-btn">Enviar</button>
         </form>
       </div>
     </div>
+
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
 
@@ -287,5 +290,20 @@
         box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
       }
     </style>
+    <script>
+      document
+        .getElementById("my_captcha_form")
+        .addEventListener("submit", function (evt) {
+          var response = grecaptcha.getResponse();
+          if (response.length == 0) {
+            //reCaptcha not verified
+            alert("please verify you are humann!");
+            evt.preventDefault();
+            return false;
+          }
+          //captcha verified
+          //do the rest of your validations here
+        });
+    </script>
   </body>
 </html>
