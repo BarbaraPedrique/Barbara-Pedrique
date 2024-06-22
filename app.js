@@ -4,6 +4,9 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
+const passport = require("passport");
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
+
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var contactRouter = require("./routes/contact");
@@ -13,6 +16,18 @@ var apiForm = require("./api/form");
 
 var app = express();
 
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: "/auth/google/callback", // Ruta a la que Google redirigirá después de la autenticación
+    },
+    (accessToken, refreshToken, profile, done) => {
+      console.log("aaaaaaaaaaaaaaaaaaa");
+    }
+  )
+);
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 // app.set('view engine', 'jade');
@@ -28,9 +43,14 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/contact", contactRouter);
 app.use("/contact-list", contactListRouter);
-
 app.use("/api/form", apiForm);
-
+app.get(
+  "/auth/google/callback",
+  passport.authenticate("google", {
+    successRedirect: "/contact-list", // Ruta a la que redirigir después de la autenticación exitosa
+    failureRedirect: "/", // Ruta a la que redirigir en caso de error
+  })
+);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
