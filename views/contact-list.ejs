@@ -89,6 +89,10 @@
         background-color: #04aa6d;
         color: white;
       }
+      th,
+      td {
+        text-align: center;
+      }
     </style>
   </head>
 
@@ -106,12 +110,13 @@
           <table class="table table-responsive table-borderless">
             <thead>
               <tr class="bg-light">
-                <th scope="col" width="20%">Nombre</th>
-                <th scope="col" width="20%">Apellido</th>
-                <th scope="col" width="20%">Email</th>
-                <th scope="col" width="20%">Telefono</th>
-                <th scope="col" width="20%">Ip</th>
-                <th scope="col" width="20%">Geolocalizacion</th>
+                <th scope="col" width="10%">Nombre</th>
+                <th scope="col" width="10%">Apellido</th>
+                <th scope="col" width="10%">Email</th>
+                <th scope="col" width="10%">Telefono</th>
+                <th scope="col" width="10%">Ip</th>
+                <th scope="col" width="10%">Geolocalizacion</th>
+                <th scope="col" width="30%">Mensaje</th>
               </tr>
             </thead>
 
@@ -131,6 +136,7 @@
                   form.geolocalization.region %>/ <%= form.geolocalization.city
                   %>
                 </td>
+                <td><%= form.description %></td>
               </tr>
               <% }); %>
             </tbody>
