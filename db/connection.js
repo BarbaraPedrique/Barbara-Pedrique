@@ -2,6 +2,7 @@ const Sequelize = require("sequelize");
 const { DataTypes } = require("sequelize");
 
 const sequelize = new Sequelize("sqlite::memory:");
+
 const Forms = sequelize.define("forms", {
   id: { type: DataTypes.STRING, primaryKey: true },
   name: DataTypes.STRING,
@@ -13,6 +14,20 @@ const Forms = sequelize.define("forms", {
   geolocalization: DataTypes.JSON,
 });
 
-sequelize.sync();
+const Users = sequelize.define("users", {
+  id: { type: DataTypes.STRING, primaryKey: true },
+  user: DataTypes.STRING,
+  password: DataTypes.STRING,
+});
 
-module.exports = Forms;
+async function initUserRoot() {
+  try {
+    await Users.create({ user: "root", password: "root" });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+sequelize.sync();
+setTimeout(initUserRoot, 5000);
+module.exports = { Forms, Users };

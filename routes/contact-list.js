@@ -1,17 +1,20 @@
 const express = require("express");
-const passport = require("passport");
-const Forms = require("../db/connection");
+const { Forms, Users } = require("../db/connection");
 
 const router = express.Router();
 
 /* GET home page. */
-router.get(
-  "/",
-  passport.authenticate("google"),
-  async function (req, res, next) {
+router.get("/", async function (req, res, next) {
+  try {
+    if (!req.session.isLoggedIn) {
+      res.redirect("/login");
+    }
     const forms = await Forms.findAll();
-    res.render("contact-list", { forms });
+    console.log(await Users.findAll());
+    res.render("contact-list", { forms, logged: req.session.isLoggedIn });
+  } catch (error) {
+    console.log(error);
   }
-);
+});
 
 module.exports = router;

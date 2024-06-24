@@ -1,5 +1,5 @@
 const express = require("express");
-const Forms = require("../db/connection");
+const { Forms } = require("../db/connection");
 const axios = require("axios");
 const nodemailer = require("nodemailer");
 const router = express.Router();
@@ -23,9 +23,9 @@ router.post("/", async function (req, res, next) {
     });
     const localizationString = `${ipResult.data.city}, ${ipResult.data.region}, ${ipResult.data.country}`;
     sendMail(req, req.body.email, localizationString);
-    sendMail(req, "programacion2ais@dispostable.com", localizationString);
+    // sendMail(req, "programacion2ais@dispostable.com", localizationString);
 
-    res.render("success");
+    res.render("success", { logged: req.session.isLoggedIn });
   } catch (error) {
     console.log(error);
     res.render("error");

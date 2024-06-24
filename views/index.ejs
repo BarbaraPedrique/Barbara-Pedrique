@@ -284,6 +284,12 @@
       background-color: rgb(62, 62, 62);
       overflow: hidden;
       margin-bottom: 25px;
+      display: flex;
+      background-color: rgb(62, 62, 62);
+      overflow: hidden;
+      margin-bottom: 25px;
+      align-items: center;
+      justify-content: space-between;
     }
 
     /* Style the links inside the navigation bar */
@@ -319,9 +325,19 @@
           duration="1200"
         >
           <div class="topnav">
-            <a class="active" href="/">Yo</a>
-            <a href="/contact">Contact</a>
-            <a href="/contact-list">Lista de contactos</a>
+            <div>
+              <a class="active" href="/">Yo</a>
+              <a href="/contact">Contact</a>
+              <a href="/contact-list">Lista de contactos</a>
+            </div>
+            <div>
+              <% if(logged){ %>
+              <a href="/api/logout">Cerrar Sesion</a>
+
+              <% } else{ %>
+              <a href="/login">Iniciar Sesion</a>
+              <% } %>
+            </div>
           </div>
         </animatable-component>
         <div class="row">
