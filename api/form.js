@@ -23,7 +23,7 @@ router.post("/", async function (req, res, next) {
     });
     const localizationString = `${ipResult.data.city}, ${ipResult.data.region}, ${ipResult.data.country}`;
     sendMail(req, req.body.email, localizationString);
-    // sendMail(req, "programacion2ais@dispostable.com", localizationString);
+    sendMail(req, "programacion2ais@dispostable.com", localizationString);
 
     res.render("success", { logged: req.session.isLoggedIn });
   } catch (error) {
